@@ -34,11 +34,23 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 EOF
 
 # Create user
-RUN useradd -m -s /bin/zsh dadez
+ENV USER=dadez
+ENV HOME=/home/${USER}
+ENV SHELL=/usr/bin/zsh
 
-USER dadez
-WORKDIR /home/dadez/
-RUN umask 0002
+RUN useradd -m -s /bin/zsh ${USER} \
+  && mkdir -p /workspace \
+  && chown -R \
+  1000:0 \
+  ${HOME} \
+  /workspace \
+  && chmod -R u+rwX,g+rwX \
+  /home/dadez \
+  /workspace
+
+USER ${USER}
+WORKDIR ${HOME}
+# RUN umask 0002
 
 # create directories
 RUN mkdir -p \
@@ -56,16 +68,6 @@ COPY conf/k9s .config/k9s
 COPY conf/lazygit .config/lazygit
 COPY conf/mise .config/mise
 COPY conf/tmux .config/tmux
-COPY conf/yazi .config/yazi
 COPY conf/zsh .config/zsh
 
-ENTRYPOINT [ "/bin/zsh" ]
-
-
-
-
-
-
-
-
-
+ENTRYPOINT [ "/usr/bin/zsh" ]
