@@ -2,7 +2,7 @@
 # =========================================================
 # History
 # =========================================================
-HISTFILE=~/.state/zsh/sh_history
+HISTFILE=~/.local/state/zsh/.zsh_history
 HISTSIZE=10000  # Save most-recent 10000 lines
 SAVEHIST=10000  # Save most-recent 10000 lines
 
