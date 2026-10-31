@@ -1,0 +1,121 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+
+# # Replace the '❯' symbol in the prompt with '➜'
+# [character] # The name of the module we are configuring is 'character'
+# success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+
+# format = """
+# $os\
+# $directory\
+# $git_branch\
+# $git_status\
+# $nodejs\
+# $rust\
+# $golang\
+# $python\
+# \n$character"""
+
+format = """
+$os\
+$directory\
+$git_branch\
+$git_status\
+$nodejs\
+$rust\
+$golang\
+$python\
+$lua\
+[](fg:color_bg1)\
+\n$character"""
+right_format = "$time"
+
+# [profiles]
+# transient = '$character'
+# rtransient = ''
+
+palette = 'vague'
+
+[time]
+style = "fg:fg0"
+format = ' [$time]($style) '
+disabled = false
+
+[character]
+error_symbol = '[✗](bold red) '
+vimcmd_symbol = "[❮](bold yellow)"
+
+[sudo]
+disabled = false
+
+[kubernetes]
+disabled = true
+
+[cmd_duration]
+disabled = false
+style = "blue bold"
+format = ' took [$duration]($style) '
+
+[golang]
+symbol = ""
+style = "bg:color_bg1 fg:blue"
+format = '[ $symbol ($version) ]($style)'
+
+[python]
+symbol = " "
+style = "bg:color_bg1 fg:blue"
+format = '[ ${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+
+[lua]
+style = "bg:color_bg1 fg:blue"
+format = '[ $symbol($version )]($style)'
+
+[git_branch]
+symbol = ""
+style = "bg:color_bg1 fg:blue"
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+style = "fg:color_green bg:color_bg1"
+format = '[\[($all_status$ahead_behind)\] ]($style)'
+
+[directory]
+style = "fg:#e3e5e5 bg:color_bg1 dimmed"
+format = "[ $path ]($style)"
+truncation_length = 8
+truncation_symbol = "…/"
+truncate_to_repo = false
+
+# [directory.substitutions]
+# "Documents" = "󰈙 "
+# "Downloads" = " "
+# "Music" = "󰝚 "
+# "Pictures" = " "
+# "dev" = "󰲋 "
+
+[os.symbols]
+Manjaro = " "
+
+[os]
+style = "fg:blue bg:color_bg1"
+format = "[$symbol]($style)"
+disabled = false
+
+[palettes.vague]
+color_black = '#252530'
+color_black-bright = '#606079'
+color_fg0 = '#fbf1c7'
+color_bg1 = '#3c3836'
+color_bg3 = '#665c54'
+color_bg-git-branch = '#0f4b6e'
+color_bg-git-status = '#34548a'
+color_bg-code = '#33635c'
+color_blue = '#6e94b2'
+color_aqua = '#689d6a'
+color_green = '#7fa563'
+color_green_tn-light-04 = '#485e30'
+color_orange = '#965027'
+color_purple = '#bb9dbd'
+color_red = '#d8647e'
+color_yellow = '#f3be7c'

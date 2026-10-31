@@ -1,0 +1,7 @@
+# $HOME/.k9s/alias.yml
+alias:
+  c: contexts
+  dep: apps/v1/deployments
+  pr: monitoring.coreos.com/v1/prometheusrules
+  p: monitoring.coreos.com/v1/prometheuses
+  sm: monitoring.coreos.com/v1/servicemonitors
