@@ -38,36 +38,39 @@ ENV USER=dadez
 ENV HOME=/home/${USER}
 ENV SHELL=/usr/bin/zsh
 
-RUN useradd -m -s /bin/zsh ${USER} \
-  && mkdir -p /workspace \
+RUN useradd -m -s /bin/zsh ${USER}
+
+# create directories
+RUN mkdir -p \
+  ${HOME}/.config/zsh \
+  ${HOME}/.local/state/zsh \
+  ${HOME}/.config/nvim \
+  ${HOME}/.local/share/nvim \
+  ${HOME}/.local/state/nvim \
+  ${HOME}/.cache/nvim
+
+
+COPY conf/k9s ${HOME}/.config/k9s
+COPY conf/lazygit ${HOME}/.config/lazygit
+COPY conf/mise ${HOME}/.config/mise
+COPY conf/tmux ${HOME}/.config/tmux
+COPY conf/zsh ${HOME}/.config/zsh
+
+# Install lazyvim
+# TODO: how to persist configuration
+RUN git clone https://github.com/LazyVim/starter ${HOME}/.config/nvim \
+  && rm -rf ${HOME}/.config/nvim/.git
+
+RUN mkdir -p /workspace \
   && chown -R \
   1000:0 \
   ${HOME} \
   /workspace \
   && chmod -R u+rwX,g+rwX \
-  /home/dadez \
+  ${HOME} \
   /workspace
 
 USER ${USER}
 WORKDIR ${HOME}
-# RUN umask 0002
-
-# create directories
-RUN mkdir -p \
-  .config/zsh \
-  .local/state/zsh \
-  .config/nvim \
-  .local/share/nvim \
-  .local/state/nvim \
-  .cache/nvim
-
-RUN git clone https://github.com/LazyVim/starter .config/nvim \
-  && rm -rf .config/nvim/.git
-
-COPY conf/k9s .config/k9s
-COPY conf/lazygit .config/lazygit
-COPY conf/mise .config/mise
-COPY conf/tmux .config/tmux
-COPY conf/zsh .config/zsh
 
 ENTRYPOINT [ "/usr/bin/zsh" ]
