@@ -47,7 +47,8 @@ RUN mkdir -p \
   ${HOME}/.config/nvim \
   ${HOME}/.local/share/nvim \
   ${HOME}/.local/state/nvim \
-  ${HOME}/.cache/nvim
+  ${HOME}/.cache/nvim \
+  ${HOME}/.local/bin
 
 
 COPY conf/k9s ${HOME}/.config/k9s
@@ -72,5 +73,7 @@ RUN mkdir -p /workspace \
 
 USER ${USER}
 WORKDIR ${HOME}
+
+ENV PATH=${HOME}/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 ENTRYPOINT [ "/usr/bin/zsh" ]
