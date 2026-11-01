@@ -9,9 +9,10 @@ RUN pacman -Syu --noconfirm \
   wget curl unzip \
   fish \
   zsh zsh-autocomplete zsh-autosuggestions zsh-completions zsh-syntax-highlighting \
-  bat dos2unix entr fd fzf go-yq jq lsd eza ripgrep starship yamllint yazi zoxide \
+  bat dos2unix entr dust fd fzf go-yq jq lsd eza ripgrep starship yamllint yazi zoxide \
   helm k9s kubectl kubectx kubie stern \
-  vim neovim tree-sitter-cli \
+  vim neovim tree-sitter-cli gcc \
+  ttf-firacode-nerd \
   tmux
 
 # Install non packaged tools
@@ -25,7 +26,7 @@ RUN set -uxe \
   && curl -Ss --fail-with-body -L "https://github.com/jdx/mise/releases/download/${MISE_VERSION}/mise-${MISE_VERSION}-linux-${ARCH}.tar.gz" \
   | tar -xz --strip-components=2 -C /usr/local/bin mise/bin/mise
 
-# TODO: install oc binary
+# TODO: install and persist oc binary
 
 # Configure zsh environment
 RUN cat <<'EOF' >> /etc/zsh/zshenv
@@ -48,8 +49,8 @@ RUN mkdir -p \
   ${HOME}/.local/share/nvim \
   ${HOME}/.local/state/nvim \
   ${HOME}/.cache/nvim \
-  ${HOME}/.local/bin
-
+  ${HOME}/.local/bin \
+  ${HOME}/.config/tmux/plugins
 
 COPY conf/k9s ${HOME}/.config/k9s
 COPY conf/lazygit ${HOME}/.config/lazygit
@@ -61,6 +62,9 @@ COPY conf/zsh ${HOME}/.config/zsh
 # TODO: how to persist configuration
 RUN git clone https://github.com/LazyVim/starter ${HOME}/.config/nvim \
   && rm -rf ${HOME}/.config/nvim/.git
+
+# Install tmux tpm
+RUN git clone https://github.com/tmux-plugins/tpm ${HOME}/.config/tmux/plugins/tpm
 
 RUN mkdir -p /workspace \
   && chown -R \
