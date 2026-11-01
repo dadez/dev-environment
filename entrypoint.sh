@@ -34,5 +34,10 @@ if [ -d "/tmp/lua_saved" ]; then
   echo "=== Custom LazyVim Initialization complete! ==="
 fi
 
+## zsh history
+if [ ! -d "/home/dadez/.local/state/zsh" ]; then
+  mkdir -vp /home/dadez/.local/state/zsh
+fi
+
 # exec CMD
 exec "$@"
