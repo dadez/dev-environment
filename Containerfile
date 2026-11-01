@@ -13,6 +13,7 @@ RUN pacman -Syu --noconfirm \
   helm k9s kubectl kubectx kubie stern \
   vim neovim tree-sitter-cli gcc \
   ttf-firacode-nerd \
+  openssh openssl \
   tmux
 
 # Install non packaged tools
