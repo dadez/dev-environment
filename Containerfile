@@ -57,11 +57,8 @@ COPY conf/lazygit ${HOME}/.config/lazygit
 COPY conf/mise ${HOME}/.config/mise
 COPY conf/tmux ${HOME}/.config/tmux
 COPY conf/zsh ${HOME}/.config/zsh
-
-# Install lazyvim
-# TODO: how to persist configuration
-RUN git clone https://github.com/LazyVim/starter ${HOME}/.config/nvim \
-  && rm -rf ${HOME}/.config/nvim/.git
+COPY entrypoint.sh ${HOME}/entrypoint.sh
+COPY conf/nvim/lua_saved /tmp/lua_saved
 
 # Install tmux tpm
 RUN git clone https://github.com/tmux-plugins/tpm ${HOME}/.config/tmux/plugins/tpm
@@ -80,4 +77,5 @@ WORKDIR ${HOME}
 
 ENV PATH=${HOME}/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-ENTRYPOINT [ "/usr/bin/zsh" ]
+ENTRYPOINT [ "./entrypoint.sh" ]
+CMD [ "/usr/bin/zsh" ]
