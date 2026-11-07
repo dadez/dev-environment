@@ -1,0 +1,14 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "enabledManagers": [
+    "dockerfile",
+    "docker-compose",
+    "github-actions"
+  ],
+  "schedule": [
+    "before 5am on monday"
+  ]
+}
