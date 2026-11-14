@@ -2,7 +2,7 @@ name: Renovate
 
 on:
   schedule:
-    - cron: "15 8 * * 6"
+    - cron: "17 5 * * 6"
   workflow_dispatch:
 
 permissions:
@@ -12,6 +12,12 @@ jobs:
   renovate:
     runs-on: ubuntu-latest
     steps:
-      - uses: renovatebot/github-action@v46.3.12
+      - name: Renovate
+        uses: renovatebot/github-action@v46.3.13
         with:
           token: ${{ secrets.RENOVATE_TOKEN }}
+        env:
+          RENOVATE_GIT_AUTHOR: "Renovate Bot <dadez@pm.me>"
+          RENOVATE_REPOSITORIES: dadez/dev-environment
+          RENOVATE_ONBOARDING: "false"
+          RENOVATE_REQUIRE_CONFIG: required
