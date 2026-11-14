@@ -10,5 +10,16 @@
   ],
   "schedule": [
     "before 5am on monday"
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "ghcr.io/dadez/dev-environment"
+      ],
+      "enabled": true
+    }
   ]
 }
