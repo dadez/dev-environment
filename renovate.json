@@ -2,14 +2,28 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
   "schedule": ["before 9am on Saturday"],
-  "mise": {
-    "managerFilePatterns": ["/(^|/)conf/mise/[^/]+\\.toml$/"]
-  },
+  "dependencyDashboard": false,
+  "prCreation": "approval",
+  "branchPrefix": "feat/renovate-",
+  "semanticCommitType": "feat",
   "packageRules": [
     {
       "matchDatasources": ["docker"],
       "matchPackageNames": ["archlinux"],
       "versioning": "regex:^base-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$"
+    },
+    {
+      "matchPackageNames": ["*"],
+      "groupName": "dependencies"
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "groupName": "major dependencies"
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["archlinux"],
+      "groupName": "dependencies"
     }
   ],
   "customManagers": [
