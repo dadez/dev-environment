@@ -1,4 +1,4 @@
-FROM archlinux:base-20261101.0.620205
+FROM archlinux:base-20261108.0.623074
 LABEL image.authors="dadez@pm.me" \
   image.title="Devtoolbox image" \
   image.description="Image for run daily tools"
@@ -20,7 +20,7 @@ RUN pacman -Syu --noconfirm \
 SHELL [ "/bin/bash", "-o", "pipefail", "-c" ]
 
 # Mise
-ENV MISE_VERSION="v2026.10.24"
+ENV MISE_VERSION="v2026.11.8"
 
 RUN set -uxe \
   && ARCH="$(uname -m | sed 's/x86_64/x64/;s/aarch64/arm64/')" \
