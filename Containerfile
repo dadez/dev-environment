@@ -1,4 +1,4 @@
-FROM archlinux:latest
+FROM archlinux:base-20261101.0.620205
 LABEL image.authors="dadez@pm.me" \
   image.title="Devtoolbox image" \
   image.description="Image for run daily tools"
@@ -26,8 +26,6 @@ RUN set -uxe \
   && ARCH="$(uname -m | sed 's/x86_64/x64/;s/aarch64/arm64/')" \
   && curl -Ss --fail-with-body -L "https://github.com/jdx/mise/releases/download/${MISE_VERSION}/mise-${MISE_VERSION}-linux-${ARCH}.tar.gz" \
   | tar -xz --strip-components=2 -C /usr/local/bin mise/bin/mise
-
-# TODO: install and persist oc binary
 
 # Configure zsh environment
 RUN cat <<'EOF' >> /etc/zsh/zshenv
