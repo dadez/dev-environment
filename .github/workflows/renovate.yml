@@ -2,31 +2,22 @@ name: Renovate
 
 on:
   schedule:
-    - cron: "17 5 * * 1"
+    - cron: "17 5 * * 6"
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   renovate:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v7.0.1
       - name: Renovate
         uses: renovatebot/github-action@v46.3.13
         with:
           token: ${{ secrets.RENOVATE_TOKEN }}
-          configuration: |
-            {
-              "autodiscover": true,
-              "enabledManagers": ["dockerfile", "docker-compose", "github-actions", "docker"],
-              "packageRules": [
-                {
-                  "matchDatasources": ["docker"],
-                  "matchPackageNames": ["ghcr.io/your-username/your-repo"],
-                  "enabled": true
-                }
-              ]
-            }
+        env:
+          RENOVATE_GIT_AUTHOR: "Renovate Bot <dadez@pm.me>"
+          RENOVATE_REPOSITORIES: dadez/dev-environment
+          RENOVATE_ONBOARDING: "false"
+          RENOVATE_REQUIRE_CONFIG: required

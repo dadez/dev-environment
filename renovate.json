@@ -1,25 +1,25 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ],
-  "enabledManagers": [
-    "dockerfile",
-    "docker-compose",
-    "github-actions"
-  ],
-  "schedule": [
-    "before 5am on monday"
-  ],
+  "extends": ["config:recommended"],
+  "schedule": ["before 9am on Saturday"],
+  "mise": {
+    "managerFilePatterns": ["/(^|/)conf/mise/[^/]+\\.toml$/"]
+  },
   "packageRules": [
     {
-      "matchDatasources": [
-        "docker"
-      ],
-      "matchPackageNames": [
-        "ghcr.io/dadez/dev-environment"
-      ],
-      "enabled": true
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["archlinux"],
+      "versioning": "regex:^base-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$"
+    }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/(^|/)Containerfile$/"],
+      "matchStrings": ["ENV MISE_VERSION=\"(?<currentValue>v[^\"\\s]+)\""],
+      "depNameTemplate": "jdx/mise",
+      "datasourceTemplate": "github-releases",
+      "versioningTemplate": "semver"
     }
   ]
 }
